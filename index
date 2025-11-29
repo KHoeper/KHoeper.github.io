@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kirstens Listen & Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #0f172a;
+      background: radial-gradient(circle at top, #e0f2fe 0, #f9fafb 55%, #f3f4f6 100%);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .shell {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.5rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    header {
+      text-align: left;
+    }
+    h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.7rem;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+    .tagline {
+      margin-top: 0.45rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .card-link {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      border-radius: 0.9rem;
+      padding: 0.9rem 0.9rem 0.85rem;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, border-color 0.1s ease-out, background 0.1s ease-out;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.15s ease-out;
+      pointer-events: none;
+    }
+    .card-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      border-color: rgba(37, 99, 235, 0.55);
+      background: #ffffff;
+    }
+    .card-link:hover::before {
+      opacity: 1;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill-secondary {
+      background: #ecfdf5;
+      color: #047857;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .pill-ghost {
+      background: #f3f4f6;
+      color: #6b7280;
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-bottom: 0.6rem;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 0.2rem;
+    }
+    .chevron {
+      font-size: 0.95rem;
+      margin-left: 0.1rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.74rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      color: #6b7280;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+    footer {
+      margin-top: 0.75rem;
+      font-size: 0.72rem;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .footer-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-tag {
+      padding: 0.05rem 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>Kirstens Listen & kleine Tools</h1>
+      <p class="subtitle">Schneller Zugriff auf Inventar, Reiselisten & persönliche Organisation.</p>
+      <p class="tagline">Alles läuft im Browser, Daten bleiben immer lokal auf deinen Geräten.</p>
+    </header>
+
+    <main>
+      <div class="grid" aria-label="Übersicht deiner Tools">
+        <!-- Inventar Wohnung – funktioniert bereits -->
+        <a class="card-link" href="inventar-wohnung.html">
+          <div>
+            <div class="card-title">
+              Inventar Wohnung
+              <span class="pill">aktiv</span>
+            </div>
+            <p class="card-desc">
+              Bestände für deine eine Wohnung: Lebensmittel, Kleidung, Kosmetik. Zeigt automatisch, was du beim nächsten Mal mitnehmen oder einkaufen solltest.
+            </p>
+          </div>
+          <div class="card-meta">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              Lokale Daten je Gerät
+            </span>
+            <span>Öffnen <span class="chevron">›</span></span>
+          </div>
+        </a>
+
+        <!-- Reiseliste – bereit für eine zukünftige Seite -->
+        <a class="card-link" href="reiseliste.html">
+          <div>
+            <div class="card-title">
+              Reiseliste allgemein
+              <span class="pill pill-ghost">geplant</span>
+            </div>
+            <p class="card-desc">
+              Eine flexible Packliste für Reisen (z.&nbsp;B. Standardgepäck, Technik, Dokumente). Diese Seite kannst du später nach dem gleichen Prinzip anlegen.
+            </p>
+          </div>
+          <div class="card-meta">
+            <span>HTML-Datei: <code>reiseliste.html</code></span>
+            <span>Noch anzulegen</span>
+          </div>
+        </a>
+
+        <!-- Packliste Italien -->
+        <a class="card-link" href="packliste-italien.html">
+          <div>
+            <div class="card-title">
+              Packliste Italien
+              <span class="pill pill-ghost">geplant</span>
+            </div>
+            <p class="card-desc">
+              Spezielle Packliste für deine Aufenthalte in Italien: Kleidung, Unterlagen, Technik, ggf. Arbeitsmaterial – zugeschnitten auf deine typischen Reisen.
+            </p>
+          </div>
+          <div class="card-meta">
+            <span>HTML-Datei: <code>packliste-italien.html</code></span>
+            <span>Noch anzulegen</span>
+          </div>
+        </a>
+
+        <!-- Weitere Listen / Platzhalter -->
+        <a class="card-link" href="tools-weitere-listen.html">
+          <div>
+            <div class="card-title">
+              Weitere Listen & Ideen
+              <span class="pill pill-secondary">flexibel</span>
+            </div>
+            <p class="card-desc">
+              Platzhalter für zukünftige kleine Tools: z.&nbsp;B. Handpan-Übungen, berufliche Checklisten, Lernlisten, Projekt-Tracker.
+            </p>
+          </div>
+          <div class="card-meta">
+            <span>HTML-Datei: <code>tools-weitere-listen.html</code></span>
+            <span>Optional / später</span>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <div>khoeper.github.io · persönliche Tools · Daten bleiben lokal in deinem Browser.</div>
+      <div class="footer-links">
+        <span class="footer-tag">Inventar</span>
+        <span class="footer-tag">Reiselisten</span>
+        <span class="footer-tag">Mini-Apps</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
